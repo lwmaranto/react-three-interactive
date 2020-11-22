@@ -4,9 +4,9 @@ module.exports = {
   mode: 'development',
   output: {
     path: __dirname, 
-    filename: 'bundle.js'
+    filename: './public/bundle.js'
   },
-  devtool: 'inline-source-maps',
+  devtool: 'inline-source-map',
   module: {
     rules: [
       {
