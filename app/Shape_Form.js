@@ -4,8 +4,8 @@ export default class ShapeForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      siteLength: 0,
-      siteWidth: 0,
+      siteLength: props.siteLength,
+      siteWidth: props.siteWidth,
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -14,20 +14,20 @@ export default class ShapeForm extends React.Component {
 
   handleChange(event) {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: Number(event.target.value)
     })
+    //this.props.onChange(event.target.value)
   }
 
   handleSubmit(event) {
     event.preventDefault()
-      this.setState({
-        siteLength: this.state.siteLength,
-        siteWidth: this.state.siteWidth
-      })
+      this.props.onShapeChange(this.state)
   }
 
   render() {
-    const state = this.state
+    //const state = this.state
+    const siteLength = this.state.siteLength
+    const siteWidth = this.state.siteWidth
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -35,7 +35,7 @@ export default class ShapeForm extends React.Component {
             <label htmlFor="siteLength">
               {' '}
               Site Length:{' '}
-              <span className={state.siteLenth ? '' : 'warning'}>
+              <span className={siteLength ? '' : 'warning'}>
                 Field is required!
               </span>
             </label>
@@ -43,12 +43,12 @@ export default class ShapeForm extends React.Component {
               onChange={this.handleChange}
               name="siteLength"
               type="number"
-              value={state.siteLength}
+              value={siteLength}
             />
             <label htmlFor="siteWidth">
               {' '}
               Site Width:{' '}
-              <span className={state.siteWidth ? '' : 'warning'}>
+              <span className={siteWidth ? '' : 'warning'}>
                 Field is required!
               </span>
             </label>
@@ -56,7 +56,7 @@ export default class ShapeForm extends React.Component {
               onChange={this.handleChange}
               name="siteWidth"
               type="number"
-              value={state.siteWidth}
+              value={siteWidth}
             />
             <button
               className="button"

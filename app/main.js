@@ -11,18 +11,21 @@ const style = {
   height: 200// we can control scene size by setting container dimensions
 };
 
+
 class App extends Component {
   constructor(props) {
     super(props)
     this.sceneSetup = this.sceneSetup.bind(this);
     this.addCustomSceneObjects = this.addCustomSceneObjects.bind(this);
     this.startAnimationLoop = this.startAnimationLoop.bind(this);
+    
   }
   componentDidMount() {
     this.sceneSetup();
     this.addCustomSceneObjects();
     this.startAnimationLoop();
     window.addEventListener("resize", this.handleWindowResize);
+    
   }
 
   componentWillUnmount() {
@@ -55,9 +58,12 @@ class App extends Component {
 
   addCustomSceneObjects() {
     //This is how you change the size and shape.They are inserted at the same origin
-    let siteLength = 5*10
+    //let siteLength = 5*10
+    //this.props.siteLength
+    //const siteWidth = this.props.siteWidth
+
     const geometry = new THREE.BoxGeometry(2, 2, 2);
-    const geometryTwo = new THREE.BoxGeometry(siteLength, 6, 1);
+    const geometryTwo = new THREE.BoxGeometry( this.props.siteLength, this.props.siteWidth, 1);
     const material = new THREE.MeshPhongMaterial({
       color: 0x156289,
       emissive: 0x072534,
@@ -134,7 +140,15 @@ class Container extends React.Component {
   constructor(props) {
     super(props)
     this.state = 
-    { isMounted: true };
+    { isMounted: true,
+      siteLength: 100,
+      siteWidth: 50
+    };
+    this.onShapeChange = this.onShapeChange.bind(this)
+  }
+
+  onShapeChange(shapeState) {
+    this.setState(shapeState)
   }
 
   render() {
@@ -148,10 +162,10 @@ class Container extends React.Component {
         >
           {isMounted ? "Unmount" : "Mount"}
         </button>
-        {isMounted && <App />}
+        {isMounted && <App onShapeChange={this.onShapeChange} siteLength={this.state.siteLength} siteWidth={this.state.siteWidth}/>}
         {isMounted && <div>Scroll to zoom, drag to rotate</div>}
         <div>
-      <ShapeForm />
+      <ShapeForm onShapeChange={this.onShapeChange} siteLength={this.state.siteLength} siteWidth={this.state.siteWidth} />
       </div>
       </>
     );
