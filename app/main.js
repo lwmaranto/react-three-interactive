@@ -8,7 +8,7 @@ import 'regenerator-runtime/runtime'
 
 
 const style = {
-  height: 200// we can control scene size by setting container dimensions
+  height: 500// we can control scene size by setting container dimensions
 };
 
 
@@ -78,7 +78,7 @@ class App extends Component {
       flatShading: true,
     });
     const materialTwo = new THREE.MeshPhongMaterial({
-      color: 0xfca311,
+      color: 0x90be6d,
       emissive: 0x072534,
       side: THREE.DoubleSide,
       flatShading: true,
