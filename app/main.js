@@ -24,8 +24,14 @@ class App extends Component {
     this.sceneSetup();
     this.addCustomSceneObjects();
     this.startAnimationLoop();
+    
     window.addEventListener("resize", this.handleWindowResize);
     
+  }
+
+  componentDidUpdate() {
+    this.scene.clear()
+    this.addCustomSceneObjects();
   }
 
   componentWillUnmount() {
@@ -63,6 +69,7 @@ class App extends Component {
     //const siteWidth = this.props.siteWidth
 
     const geometry = new THREE.BoxGeometry(2, 2, 2);
+    
     const geometryTwo = new THREE.BoxGeometry( this.props.siteLength, this.props.siteWidth, 1);
     const material = new THREE.MeshPhongMaterial({
       color: 0x156289,
@@ -78,8 +85,13 @@ class App extends Component {
     });
     this.cube = new THREE.Mesh(geometry, material);
     this.cubeTwo = new THREE.Mesh(geometryTwo, materialTwo);
-    this.cube.add(this.cubeTwo)
+    this.cube.position.x = 0
+    this.cube.position.y = 0
+    this.cube.position.z = 2
+    //this.cube.add(this.cubeTwo)
+
     this.scene.add(this.cube);
+    this.scene.add(this.cubeTwo);
     
 
     const lights = [];
@@ -160,7 +172,7 @@ class Container extends React.Component {
             this.setState(state => ({ isMounted: !state.isMounted }))
           }
         >
-          {isMounted ? "Unmount" : "Mount"}
+          {isMounted ? "Hide" : "Unhide"}
         </button>
         {isMounted && <App onShapeChange={this.onShapeChange} siteLength={this.state.siteLength} siteWidth={this.state.siteWidth}/>}
         {isMounted && <div>Scroll to zoom, drag to rotate</div>}
