@@ -16,6 +16,8 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.sceneSetup = this.sceneSetup.bind(this);
+    this.calculateBuildingLength = this.calculateBuildingLength.bind(this)
+    this.calculateBuildingWidth = this.calculateBuildingWidth.bind(this)
     this.addCustomSceneObjects = this.addCustomSceneObjects.bind(this);
     this.startAnimationLoop = this.startAnimationLoop.bind(this);
     
@@ -53,7 +55,7 @@ class App extends Component {
     );
     this.controls = new OrbitControls(this.camera, this.el);
     // set some distance from a cube that is located at z = 0
-    this.camera.position.z = 20;
+    this.camera.position.z = 50;
 
     this.scene.background = new THREE.Color('skyblue')
 
@@ -62,17 +64,38 @@ class App extends Component {
     this.el.appendChild(this.renderer.domElement); // mount using React ref};
   }
 
+  calculateBuildingLength(length) {
+    if (length < 100) {
+      return length - 35
+    } else {
+      return length - ((length * .2) + 15)
+    }
+  }
+
+  calculateBuildingWidth(width) {
+    if (width > 50) {
+      return width - 10
+    } else if (width < 30) {
+      return width - 6
+    } else {
+      return width - (2 * (width * .1))
+    }
+  }
+
   addCustomSceneObjects() {
     //This is how you change the size and shape.They are inserted at the same origin
-    //let siteLength = 5*10
-    //this.props.siteLength
-    //const siteWidth = this.props.siteWidth
 
-    const geometry = new THREE.BoxGeometry(2, 2, 2);
+    const buildingWidth = this.calculateBuildingWidth(this.props.siteWidth)
+    console.log(buildingWidth)
+
+    const buildingLength = this.calculateBuildingLength(this.props.siteLength)
+    console.log(buildingLength)
+
+    const geometry = new THREE.BoxGeometry(buildingLength, buildingWidth, 14);
     
     const geometryTwo = new THREE.BoxGeometry( this.props.siteLength, this.props.siteWidth, 1);
     const material = new THREE.MeshPhongMaterial({
-      color: 0x156289,
+      color: 0xf94144,
       emissive: 0x072534,
       side: THREE.DoubleSide,
       flatShading: true,
@@ -87,7 +110,7 @@ class App extends Component {
     this.cubeTwo = new THREE.Mesh(geometryTwo, materialTwo);
     this.cube.position.x = 0
     this.cube.position.y = 0
-    this.cube.position.z = 2
+    this.cube.position.z = 7
     //this.cube.add(this.cubeTwo)
 
     this.scene.add(this.cube);
@@ -178,6 +201,9 @@ class Container extends React.Component {
         {isMounted && <div>Scroll to zoom, drag to rotate</div>}
         <div>
       <ShapeForm onShapeChange={this.onShapeChange} siteLength={this.state.siteLength} siteWidth={this.state.siteWidth} />
+      </div>
+      <div>
+        <p>MAX BUILDING LENGTH: </p>
       </div>
       </>
     );
