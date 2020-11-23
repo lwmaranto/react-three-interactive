@@ -74,30 +74,12 @@ class App extends Component {
     // set some distance from a cube that is located at z = 0
     this.camera.position.z = 50;
 
-    this.scene.background = new THREE.Color('skyblue')
+    this.scene.background = new THREE.Color(0x0077b6)
 
     this.renderer = new THREE.WebGLRenderer();
     this.renderer.setSize(width, height);
     this.el.appendChild(this.renderer.domElement); // mount using React ref};
   }
-
-  /*calculateBuildingLength(length) {
-    if (length < 100) {
-      return length - 35
-    } else {
-      return length - ((length * .2) + 15)
-    }
-  }
-
-  calculateBuildingWidth(width) {
-    if (width > 50) {
-      return width - 10
-    } else if (width < 30) {
-      return width - 6
-    } else {
-      return width - (2 * (width * .1))
-    }
-  }*/
 
   addCustomSceneObjects() {
     //This is how you change the size and shape.They are inserted at the same origin
@@ -112,7 +94,7 @@ class App extends Component {
     
     const geometryTwo = new THREE.BoxGeometry( this.props.siteLength, this.props.siteWidth, 1);
     const material = new THREE.MeshPhongMaterial({
-      color: 0xf94144,
+      color: 0xf95738,
       emissive: 0x072534,
       side: THREE.DoubleSide,
       flatShading: true,
@@ -128,7 +110,6 @@ class App extends Component {
     this.cube.position.x = 0
     this.cube.position.y = 0
     this.cube.position.z = 7
-    //this.cube.add(this.cubeTwo)
 
     this.scene.add(this.cube);
     this.scene.add(this.cubeTwo);
@@ -164,25 +145,7 @@ class App extends Component {
     this.camera.aspect = width / height;
     this.camera.updateProjectionMatrix();
   }
-  /* var scene = new THREE.Scene();
-      var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
-      var renderer = new THREE.WebGLRenderer();
-      renderer.setSize( window.innerWidth, window.innerHeight );
-      // use ref as a mount point of the Three.js scene instead of the document.body
-      this.mount.appendChild( renderer.domElement );
-      var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-      var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-      var cube = new THREE.Mesh( geometry, material );
-      scene.add( cube );
-      camera.position.z = 5;
-      var animate = function () {
-      requestAnimationFrame( animate );
-      cube.rotation.x += 0.01;
-      cube.rotation.y += 0.01;
-      renderer.render( scene, camera );
-    };
-    animate();
-  } */
+ 
   render() {
     return <div style={style} ref={(ref) => (this.el = ref)} />;
   }
@@ -215,7 +178,9 @@ class Container extends React.Component {
           {isMounted ? "Hide" : "Unhide"}
         </button>
         {isMounted && <App onShapeChange={this.onShapeChange} siteLength={this.state.siteLength} siteWidth={this.state.siteWidth}/>}
+        <p></p>
         {isMounted && <div>Scroll to zoom, drag to rotate</div>}
+        <p></p>
         <div>
       <ShapeForm onShapeChange={this.onShapeChange} siteLength={this.state.siteLength} siteWidth={this.state.siteWidth} />
       </div>

@@ -1,0 +1,16 @@
+body {
+  margin: 20px;
+  font-family: sans-serif;
+  color: #003f88;
+}
+
+form button {
+  color: white;
+  background-color: #6a040f;
+}
+
+.button,
+button {
+  background-color: #fdc500;
+  border: 0.1rem solid #fdc500;
+}

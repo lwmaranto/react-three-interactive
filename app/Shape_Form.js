@@ -43,6 +43,7 @@ export default class ShapeForm extends React.Component {
               onChange={this.handleChange}
               name="siteLength"
               type="number"
+              min="35"
               value={siteLength}
             />
             <label htmlFor="siteWidth">
@@ -56,6 +57,7 @@ export default class ShapeForm extends React.Component {
               onChange={this.handleChange}
               name="siteWidth"
               type="number"
+              min="6"
               value={siteWidth}
             />
             <button
