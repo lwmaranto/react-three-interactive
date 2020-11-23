@@ -11,13 +11,30 @@ const style = {
   height: 500// we can control scene size by setting container dimensions
 };
 
+function calculateBuildingLength(length) {
+  if (length < 100) {
+    return length - 35
+  } else {
+    return length - ((length * .2) + 15)
+  }
+}
+
+function calculateBuildingWidth(width) {
+  if (width > 50) {
+    return width - 10
+  } else if (width < 30) {
+    return width - 6
+  } else {
+    return width - (2 * (width * .1))
+  }
+}
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.sceneSetup = this.sceneSetup.bind(this);
-    this.calculateBuildingLength = this.calculateBuildingLength.bind(this)
-    this.calculateBuildingWidth = this.calculateBuildingWidth.bind(this)
+    //this.calculateBuildingLength = this.calculateBuildingLength.bind(this)
+    //this.calculateBuildingWidth = this.calculateBuildingWidth.bind(this)
     this.addCustomSceneObjects = this.addCustomSceneObjects.bind(this);
     this.startAnimationLoop = this.startAnimationLoop.bind(this);
     
@@ -64,7 +81,7 @@ class App extends Component {
     this.el.appendChild(this.renderer.domElement); // mount using React ref};
   }
 
-  calculateBuildingLength(length) {
+  /*calculateBuildingLength(length) {
     if (length < 100) {
       return length - 35
     } else {
@@ -80,15 +97,15 @@ class App extends Component {
     } else {
       return width - (2 * (width * .1))
     }
-  }
+  }*/
 
   addCustomSceneObjects() {
     //This is how you change the size and shape.They are inserted at the same origin
 
-    const buildingWidth = this.calculateBuildingWidth(this.props.siteWidth)
+    const buildingWidth = calculateBuildingWidth(this.props.siteWidth)
     console.log(buildingWidth)
 
-    const buildingLength = this.calculateBuildingLength(this.props.siteLength)
+    const buildingLength = calculateBuildingLength(this.props.siteLength)
     console.log(buildingLength)
 
     const geometry = new THREE.BoxGeometry(buildingLength, buildingWidth, 14);
@@ -203,7 +220,8 @@ class Container extends React.Component {
       <ShapeForm onShapeChange={this.onShapeChange} siteLength={this.state.siteLength} siteWidth={this.state.siteWidth} />
       </div>
       <div>
-        <p>MAX BUILDING LENGTH: </p>
+        <p>MAX BUILDING LENGTH: {calculateBuildingLength(this.state.siteLength)}</p>
+        <p>MAX BUILDING WIDTH: {calculateBuildingWidth(this.state.siteWidth)}</p>
       </div>
       </>
     );
