@@ -1,73 +1,85 @@
-import React from 'react'
+import React from "react";
 
 export default class ShapeForm extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      siteLength: props.siteLength,
-      siteWidth: props.siteWidth,
-    }
+      shapeLength: props.shapeLength,
+      shapeWidth: props.shapeWidth,
+      shapeHeight: props.shapeHeight,
+    };
 
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
     this.setState({
-      [event.target.name]: Number(event.target.value)
-    })
-    //this.props.onChange(event.target.value)
+      [event.target.name]: Number(event.target.value),
+    });
   }
 
   handleSubmit(event) {
-    event.preventDefault()
-      this.props.onShapeChange(this.state)
+    event.preventDefault();
+    this.props.onShapeChange(this.state);
   }
 
   render() {
-    //const state = this.state
-    const siteLength = this.state.siteLength
-    const siteWidth = this.state.siteWidth
+    const shapeLength = this.state.shapeLength;
+    const shapeWidth = this.state.shapeWidth;
+    const shapeHeight = this.state.shapeHeight;
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
           <fieldset>
-            <label htmlFor="siteLength">
-              {' '}
-              Site Length:{' '}
-              <span className={siteLength ? '' : 'warning'}>
+            <label htmlFor="shapeLength">
+              {" "}
+              Shape Length:{" "}
+              <span className={shapeLength ? "" : "warning"}>
                 Field is required!
               </span>
             </label>
             <input
               onChange={this.handleChange}
-              name="siteLength"
+              name="shapeLength"
               type="number"
-              value={siteLength}
+              min="1"
+              value={shapeLength}
             />
-            <label htmlFor="siteWidth">
-              {' '}
-              Site Width:{' '}
-              <span className={siteWidth ? '' : 'warning'}>
+            <label htmlFor="shapeWidth">
+              {" "}
+              Shape Width:{" "}
+              <span className={shapeWidth ? "" : "warning"}>
                 Field is required!
               </span>
             </label>
             <input
               onChange={this.handleChange}
-              name="siteWidth"
+              name="shapeWidth"
               type="number"
-              value={siteWidth}
+              min="1"
+              value={shapeWidth}
             />
-            <button
-              className="button"
-              type="submit"
-            >
-              Submit
+            <label htmlFor="shapeHeight">
+              {" "}
+              Shape Height:{" "}
+              <span className={shapeHeight ? "" : "warning"}>
+                Field is required!
+              </span>
+            </label>
+            <input
+              onChange={this.handleChange}
+              name="shapeHeight"
+              type="number"
+              min="1"
+              value={shapeHeight}
+            />
+            <button className="button" type="submit">
+              Resize Me!
             </button>
           </fieldset>
         </form>
       </div>
-    )
+    );
   }
 }
-
