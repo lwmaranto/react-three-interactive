@@ -143,5 +143,5 @@ class Container extends React.Component {
   }
 }
 
-const rootElement = document.getElementById("root");
+const rootElement = document.getElementById("main");
 ReactDOM.render(<Container />, rootElement);
