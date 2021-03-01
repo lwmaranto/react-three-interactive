@@ -43,7 +43,7 @@
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "sequelize": "^6.3.5",
-    "three": "^0.122.0",
+    "three": "^0.125.0",
     "volleyball": "^1.5.1"
   }
 }
